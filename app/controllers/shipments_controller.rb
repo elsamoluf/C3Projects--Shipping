@@ -16,8 +16,12 @@ class ShipmentsController < ApplicationController
     # origin
     # ???
 
+    # packages
+    # ???
+
     destination = ActiveShipping::Location.new(country: 'US', state: state, city: city, zip: zip)
     # create origin too
+    # and packages
     ###
 
     response = fedex.find_rates(origin, destination, packages)
