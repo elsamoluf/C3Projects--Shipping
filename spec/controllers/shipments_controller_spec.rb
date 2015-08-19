@@ -17,6 +17,9 @@ RSpec.describe ShipmentsController, type: :controller do
 
 
     it "is successful" do
+      origin
+      destination
+      packages
       get :index, origin: origin, destination: destination, packages: packages
 
       expect(response.response_code).to eq 200
@@ -46,7 +49,7 @@ RSpec.describe ShipmentsController, type: :controller do
 
     it "returns both carrier estimates together" do
       get :index, origin: origin, destination: destination, packages: packages
-      
+
       expect(fedex_rates + usps_rates).to eq rates
     end
   end
