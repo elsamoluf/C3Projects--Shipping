@@ -1,3 +1,4 @@
+require 'active_shipping'
 class UspsClient
   attr_reader :usps
 
