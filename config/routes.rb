@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   # resources :shipments
-  get '/shipments/:query' => 'shipments#index'
+  get '/shipments' => 'shipments#rates'
   post '/shipments/:audit' => 'shipments#create'
   get '/tracking/:query' => 'shipments#tracking'
   # The priority is based upon order of creation: first created -> highest priority.
