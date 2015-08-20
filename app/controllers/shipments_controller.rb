@@ -1,52 +1,11 @@
 class ShipmentsController < ApplicationController
 
-  # def fetch_fedex_rates
-  #   fedex = FedexClient.new
-  #   shipment = JSON.parse(params[:json_data])["shipment"]
-  #   rates = fedex.fetch_rates(shipment)
-  #
-  #   render json: rates
-  # end
-  #
-  # def fetch_usps_rates
-  #   usps = UspsClient.new
-  #   shipment = JSON.parse(params[:json_data])["shipment"]
-  #   rates = usps.fetch_rates(shipment)
-  #
-  #   render json: rates
-  # end
-
   def rates
-    shipment = {
-      shipment: {
-        origin: {
-          country: "US",
-          city: "Seattle",
-          state: "WA",
-          postal_code: "98106"
-        },
-        destination: {
-          country: "US",
-          city: "Minneapolis",
-          state: "MN",
-          postal_code: "55414"
-        },
-        packages: {
-          weight: 2,
-          dimensions: [2, 2, 2]
-        }
-      }
-    }
-
-    params[:json_data] = shipment.to_json
-
-    # raise
     shipment = JSON.parse(params[:json_data])["shipment"]
     fedex_rates = FedexClient.new.fetch_rates(shipment)
     usps_rates = UspsClient.new.fetch_rates(shipment)
 
     both_rates = fedex_rates + usps_rates
-
 
     unless both_rates.empty?
       render json: both_rates, status: :ok

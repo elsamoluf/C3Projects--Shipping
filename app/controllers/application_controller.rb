@@ -1,5 +1,4 @@
 require 'active_shipping'
-require 'shipping_client'
 require 'fedex_client'
 require 'usps_client'
 

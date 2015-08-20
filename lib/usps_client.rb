@@ -2,29 +2,24 @@ require 'active_shipping'
 class UspsClient
   attr_reader :usps
 
-  # USPS_SERVICES = ["USPS First-Class Mail Parcel", "USPS Priority Mail 1-Day"]
-
   def initialize
     @usps = ActiveShipping::USPS.new(login: ENV['ACTIVESHIPPING_USPS_LOGIN'], test: true)
   end
 
   def fetch_rates(shipment)
-    origin = ActiveShipping::Location.new(country: "US", city: shipment["origin"]["city"], state: shipment["origin"]["state"], postal_code: shipment["origin"]["postal_code"])
+    origin = ActiveShipping::Location.new(country: "US", city: shipment["origin"]["city"], state: shipment["origin"]["state"], postal_code: shipment["origin"]["postal_code"], name: shipment["origin"]["name"], address1: shipment["origin"]["address1"])
 
-    destination = ActiveShipping::Location.new(country: "US", city: shipment["destination"]["city"], state: shipment["destination"]["state"], postal_code: shipment["destination"]["postal_code"])
+    destination = ActiveShipping::Location.new(country: "US", city: shipment["destination"]["city"], state: shipment["destination"]["state"], postal_code: shipment["destination"]["postal_code"], name: shipment["destination"]["name"], address1: shipment["destination"]["address1"])
 
-    packages = ActiveShipping::Package.new(shipment["packages"]["weight"], shipment["packages"]["dimensions"])
-
-    # # packages = []
-    # # passed_packages.each do |package|
-    # #   a_package = ActiveShipping::Package.new(package["weight"], package["dimensions"])
-    #   passed_packages = ActiveShipping::Package.new(packages["weight"], packages["dimensions"])
-    #   packages = passed_packages
-    #   # packages << a_package
-    # # end
+    packages = ActiveShipping::Package.new(shipment["packages"]["weight"], shipment["packages"]["dimensions"], :units => :imperial, :currency => "USD")
 
     response = usps.find_rates(origin, destination, packages)
     rates = response.rates
+
+    limited_rates = []
+    rates.each do |rate|
+      limited_rates << rate if rate.service_name == "USPS First-Class Mail Parcel" || rate.service_name == "USPS Standard Post"
+    end
 
     # ## collect only the desired service rates
     # collected_rates = []
@@ -44,6 +39,6 @@ class UspsClient
     #   }
     # end
     # return rate_price_pairs
-    return rates
+    return limited_rates
   end
 end
