@@ -23,13 +23,13 @@ class ShipmentsController < ApplicationController
           country: "US",
           city: "Seattle",
           state: "WA",
-          zipcode: "98106"
+          postal_code: "98106"
         },
         destination: {
           country: "US",
           city: "Minneapolis",
           state: "MN",
-          zipcode: "55414"
+          postal_code: "55414"
         },
         packages: {
           weight: 2,
@@ -38,9 +38,7 @@ class ShipmentsController < ApplicationController
       }
     }
 
-    json_shipment = shipment.to_json
-
-    params[:json_data] = json_shipment
+    params[:json_data] = shipment.to_json
 
     # raise
     shipment = JSON.parse(params[:json_data])["shipment"]

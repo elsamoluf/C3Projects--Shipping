@@ -8,19 +8,19 @@ class UspsClient
   end
 
   def fetch_rates(shipment)
-    origin = ActiveShipping::Location.new(country: "US", city: shipment["origin"]["city"], state: shipment["origin"]["state"], zipcode: shipment["origin"]["zipcode"])
+    origin = ActiveShipping::Location.new(country: "US", city: shipment["origin"]["city"], state: shipment["origin"]["state"], postal_code: shipment["origin"]["postal_code"])
 
-    destination = ActiveShipping::Location.new(country: "US", city: shipment["origin"]["city"], state: shipment["origin"]["state"], zipcode: shipment["origin"]["zipcode"])
+    destination = ActiveShipping::Location.new(country: "US", city: shipment["destination"]["city"], state: shipment["destination"]["state"], postal_code: shipment["destination"]["postal_code"])
 
-    passed_packages = shipment["packages"]
+    packages = ActiveShipping::Package.new(shipment["packages"]["weight"], shipment["packages"]["dimensions"])
 
-    # packages = []
-    # passed_packages.each do |package|
-    #   a_package = ActiveShipping::Package.new(package["weight"], package["dimensions"])
-      passed_packages = ActiveShipping::Package.new(package["weight"], package["dimensions"])
-      packages = passed_packages
-      # packages << a_package
-    # end
+    # # packages = []
+    # # passed_packages.each do |package|
+    # #   a_package = ActiveShipping::Package.new(package["weight"], package["dimensions"])
+    #   passed_packages = ActiveShipping::Package.new(packages["weight"], packages["dimensions"])
+    #   packages = passed_packages
+    #   # packages << a_package
+    # # end
 
     response = usps.find_rates(origin, destination, packages)
     rates = response.rates
