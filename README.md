@@ -49,8 +49,8 @@ Given shipping addresses and a set of packages, generate a quote for the cost of
   - When a User's request is incomplete, return an appropriate error
   - When a User's request does not process in a timely manner, return an appropriate error
 
-- (____) Get bEtsy to send order data to Shipping API
-- (____) Shipping API controller tests
+- (DONE) Get bEtsy to send order data to Shipping API
+- (DONE) Shipping API controller tests
 
 #### Your bEtsy application will:
 - Integrate packaging estimates into the checkout workflow to be able to utilize the shipping API
