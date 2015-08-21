@@ -41,23 +41,26 @@ Given shipping addresses and a set of packages, generate a quote for the cost of
 ## Requirements
 ### Technical Requirements
 #### Your API will:
-- Respond with JSON and proper HTTP response codes  
-- Allow Users to get shipping cost quotes for different delivery types  
-- Allow Users to get a cost comparison of two or more shippers  
-- Log all requests and their associated responses such that an audit could be conducted  
-- Have appropriate error handling:
+- (DONE) Respond with JSON and proper HTTP response codes
+- (DONE) Allow Users to get shipping cost quotes for different delivery types  
+- (DONE) Allow Users to get a cost comparison of two or more shippers  
+- (X) Log all requests and their associated responses such that an audit could be conducted  
+- (X) Have appropriate error handling:
   - When a User's request is incomplete, return an appropriate error
   - When a User's request does not process in a timely manner, return an appropriate error
+
+- (____) Get bEtsy to send order data to Shipping API
+- (____) Shipping API controller tests
 
 #### Your bEtsy application will:
 - Integrate packaging estimates into the checkout workflow to be able to utilize the shipping API
 - Present the relevant shipping information to the user during the checkout process
-  - Cost
-  - Delivery estimate
-  - Tracking information (when available)
+  - (DONE) Cost
+  - (X) Delivery estimate
+  - (X) Tracking information (when available)
 
 ### Testing
-- 95% test coverage for all API Controller routes, Model validations, and Model methods
+- (X) 95% test coverage for all API Controller routes, Model validations, and Model methods
 
 ### Added Fun!
 - Do some refactoring of the bEtsy project you're working on
