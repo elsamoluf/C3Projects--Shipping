@@ -21,24 +21,6 @@ class UspsClient
       limited_rates << rate if rate.service_name == "USPS First-Class Mail Parcel" || rate.service_name == "USPS Standard Post"
     end
 
-    # ## collect only the desired service rates
-    # collected_rates = []
-    # rates.each do |rate|
-    #   collected_rates << rate if USPS_SERVICES.include?(rate.service_name)
-    # end
-    #
-    # ## pull out just the service_name and calculate the total rate
-    # rate_price_pairs = []
-    # collected_rates.each do |rate|
-    #   collected_prices = 0
-    #   rate.package_rates.each do |package_rate|
-    #     collected_prices += package_rate[:rate]
-    #   end
-    #   rate_price_pairs << {
-    #     service_name: rate.service_name, total_price: collected_prices
-    #   }
-    # end
-    # return rate_price_pairs
     return limited_rates
   end
 end
